@@ -35,11 +35,19 @@ class BarChart {
 
         this.maxNum = this.calculateMax();
         this.numBars = this.data.getRowCount();
-        this.remainWidth = this.charW - (this.margin * 2) - ((this.numBars -1) * this.spacing);
+        // Calculates the available space for the bars (excluding margins and space between bars)
+        this.remainWidth = this.charW
+                            - (this.margin * 2)
+                            - ((this.numBars - 1) * this.spacing);
+        // The remaining width divided by the number of bars
         this.barWidth = this.remainWidth / this.numBars;
-        this.barUnit = (this.barWidth + this.spacing); 
+        // Is the barWidth including the spacing after the bar
+        this.barUnit = (this.barWidth + this.spacing);
     }
 
+    /**
+        * Creates the chart (with a title)
+    */
     drawChart() {
         stroke(50);
         push();           
@@ -53,6 +61,9 @@ class BarChart {
         pop();
     }
 
+    /**
+        * Creates the bars
+    */
     drawBars() {
         push();
             translate(this.margin, 0);
@@ -63,11 +74,16 @@ class BarChart {
                 stroke(this.colors[colorNum]);
                 strokeCap(SQUARE);
                 // ! strokeCap(ROUND);
-                line(this.margin + (x * this.barUnit), 0, this.margin + (x * this.barUnit), this.scaler(value));
+                line(this.margin, 0, this.margin, this.scaler(value));
+                // Moves the starting point for the next bar
+                translate(this.barUnit, 0);
             }
         pop();
     }
 
+    /**
+        * Creates the horizontal axis' line and values
+    */
     drawHAxis(){
         line(0, 0, this.charW, 0);
 
@@ -91,6 +107,9 @@ class BarChart {
         pop();
     }
 
+    /**
+        * Creates the vertical axis' line, ticks and values
+    */
     drawVAxis(){
         line(0, 0, 0, -this.charH);
         
@@ -111,7 +130,13 @@ class BarChart {
         }
     }
 
+    /**
+        * Calculates the maximum number and rounder the vertical axis numbers
+        *
+        * @returns {number}
+     */
     calculateMax() {
+        // Calculates the maximum value in any data row
         let max = 0;
         for (let x = 0; x < this.data.getRowCount(); x++) {
             if (int(this.data.rows[x].obj[this.yAxis]) > max) {
@@ -119,6 +144,7 @@ class BarChart {
             }
         }
 
+        // Increase max by one at a time until it's divisible by the number of ticks and also divisible by the rounding number
         for (let x = max; x < 1000000; x++) {
             if (x % this.numTicks == 0 && x % this.rounding == 0) {
                 max = x;
@@ -128,9 +154,17 @@ class BarChart {
 
         return max;
     }
-
+    
+    /**
+        * Scales the data values to fit within the chart height
+        *
+        * @param {*} _num
+        * @returns {number}
+     */
     scaler(_num) {
+        // Calculate the amount to scale each value by
         let scaleValue = this.maxNum / this.charH;
+        // Apply the scaling factor to the value for the current bar
         return _num / scaleValue;
     }
 }

@@ -37,11 +37,19 @@ class StackChart {
 
         this.maxNum = this.calculateMax();
         this.numBars = this.data.getRowCount();
-        this.remainWidth = this.charW - (this.margin * 2) - ((this.numBars -1) * this.spacing);
+        // Calculates the available space for the bars (excluding margins and space between bars)
+        this.remainWidth = this.charW
+                            - (this.margin * 2)
+                            - ((this.numBars - 1) * this.spacing);
+        // The remaining width divided by the number of bars
         this.barWidth = this.remainWidth / this.numBars;
+        // Is the barWidth including the spacing after the bar
         this.barUnit = (this.barWidth + this.spacing);
     }
 
+    /**
+        * Creates the chart (with a title)
+    */
     drawChart() {
         stroke(50);
         push();           
@@ -56,6 +64,9 @@ class StackChart {
         pop();
     }
 
+    /**
+        * Creates the bars
+    */
     drawBars() {
         for(let x = 0; x < this.data.getRowCount(); x++){
             push();
@@ -75,6 +86,9 @@ class StackChart {
         }
     }
 
+    /**
+        * Creates legend (shows what each color of the stack mean)
+    */
     legend() {
         push();
             for (let x = 0; x < this.stackOptions.length; x++) {
@@ -86,6 +100,9 @@ class StackChart {
         pop();
     }
 
+    /**
+        * Creates the horizontal axis' line and values
+    */
     drawHAxis() {
         line(0, 0, this.charW, 0);
 
@@ -108,6 +125,9 @@ class StackChart {
         pop();
     }
 
+    /**
+        * Creates the vertical axis' line, ticks and values
+    */
     drawVAxis(){
         line(0, 0, 0, -this.charH);
 
@@ -127,14 +147,21 @@ class StackChart {
         }
     }
 
+    /**
+        * Calculates the maximum number and rounder the vertical axis numbers
+        *
+        * @returns {number}
+    */
     calculateMax() {
+        // Calculates the maximum value in any data row
         let max = 0;
         for (let x = 0; x < this.data.getRowCount(); x++) {
             if (int(this.data.rows[x].obj[this.yAxis]) > max) {
-                max = int(this.data.rows[x].obj[this.yAxis]);
+                max = (int(this.data.rows[x].obj[this.yAxis]));
             }
         }
 
+        // Increase max by one at a time until it's divisible by the number of ticks and also divisible by the rounding number
         for (let x = max; x < 1000000; x++) {
             if (x % this.numTicks == 0 && x % this.rounding == 0) {
                 max = x;
@@ -144,9 +171,17 @@ class StackChart {
 
         return max;
     }
-
+    
+    /**
+        * Scales the data values to fit within the chart height
+        *
+        * @param {*} _num
+        * @returns {number}
+     */
     scaler(_num) {
+        // Calculate the amount to scale each value by
         let scaleValue = this.maxNum / this.charH;
+        // Apply the scaling factor to the value for the current bar
         return _num / scaleValue;
     }
 }

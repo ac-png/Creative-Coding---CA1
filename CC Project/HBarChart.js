@@ -35,26 +35,35 @@ class HBarChart {
 
         this.maxNum = this.calculateMax();
         this.numBars = this.data.getRowCount();
-        this.remainWidth = this.charH - (this.margin * 2) - ((this.numBars -1) * this.spacing);
+        // Calculates the available space for the bars (excluding margins and space between bars)
+        this.remainWidth = this.charH
+                            - (this.margin * 2)
+                            - ((this.numBars -1) * this.spacing);
+        // The remaining width divided by the number of bars
         this.barWidth = this.remainWidth / this.numBars;
+        // Is the barWidth including the spacing after the bar
         this.barUnit = this.barWidth + this.spacing;
     }
 
+    /**
+        * Creates the chart (with a title)
+    */
     drawChart() {
         push();           
             translate(this.xPos, this.yPos);
-
             textFont(this.font);
             fill(0);
             textSize(20);
             text(this.title, 0, -20)
-
             this.drawVAxis();
             this.drawHAxis();
             this.drawBars();
         pop();
     }
 
+    /**
+        * Creates the bars
+    */
     drawBars() {
         push();
             for (let x = 0; x < this.numBars; x++) {
@@ -70,6 +79,9 @@ class HBarChart {
         pop();
     }
 
+    /**
+        * Creates the vertical axis' line and values
+    */
     drawVAxis(){
         line(0, this.charH, 0, -10);
 
@@ -93,6 +105,9 @@ class HBarChart {
         pop();
     }
 
+    /**
+        * Creates the horizontal axis' line, ticks and values
+    */
     drawHAxis(){
         line(0, this.charH, this.charW, this.charH);
 
@@ -112,14 +127,21 @@ class HBarChart {
         }
     }
 
+    /**
+        * Calculates the maximum number and rounder the vertical axis numbers
+        *
+        * @returns {number}
+     */
     calculateMax() {
+        // Calculates the maximum value in any data row
         let max = 0;
         for (let x = 0; x < this.data.getRowCount(); x++) {
             if (int(this.data.rows[x].obj[this.yAxis]) > max) {
-                max = int(this.data.rows[x].obj[this.yAxis]);
+                max = (int(this.data.rows[x].obj[this.yAxis]));
             }
         }
 
+        // Increase max by one at a time until it's divisible by the number of ticks and also divisible by the rounding number
         for (let x = max; x < 1000000; x++) {
             if (x % this.numTicks == 0 && x % this.rounding == 0) {
                 max = x;
@@ -130,8 +152,16 @@ class HBarChart {
         return max;
     }
 
+    /**
+        * Scales the data values to fit within the chart height
+        *
+        * @param {*} _num
+        * @returns {number}
+     */
     scaler(_num) {
+        // Calculate the amount to scale each value by
         let scaleValue = this.maxNum / this.charW;
+        // Apply the scaling factor to the value for the current bar
         return _num / scaleValue;
     }
 }

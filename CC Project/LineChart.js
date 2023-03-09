@@ -35,11 +35,19 @@ class LineChart {
 
         this.maxNum = this.calculateMax();
         this.numBars = this.data.getRowCount();
-        this.remainWidth = this.charW - (this.margin * 2) - ((this.numBars -1) * this.spacing);
+        // Calculates the available space for the bars (excluding margins and space between bars)
+        this.remainWidth = this.charW
+                            - (this.margin * 2)
+                            - ((this.numBars - 1) * this.spacing);
+        // The remaining width divided by the number of bars
         this.barWidth = this.remainWidth / this.numBars;
-        this.barUnit = (this.barWidth + this.spacing); 
+        // Is the barWidth including the spacing after the bar
+        this.barUnit = (this.barWidth + this.spacing);
     }
 
+    /**
+        * Creates the chart (with a title)
+    */
     drawChart() {
         stroke(50);
         push();           
@@ -53,7 +61,9 @@ class LineChart {
         pop();
     }
 
-
+    /**
+        * Creates the circles
+    */
     drawCircles() {
         push();
             translate(this.margin, 0);
@@ -61,11 +71,16 @@ class LineChart {
                 let colorNum = x % this.colors.length;
                 let value = int(-this.data.rows[x].obj[this.yAxis]);
                 fill(this.colors[colorNum]);
-                ellipse(this.margin + (x * this.barUnit), this.scaler(value), this.barWidth, this.barWidth);
+                ellipse(this.margin, this.scaler(value), this.barWidth, this.barWidth);
+                // Moves the x co-ordinate for the next circle
+                translate(this.barUnit, 0);
             }
         pop();
     }
 
+    /**
+        * Creates the horizontal axis' line and values
+    */
     drawHAxis(){
         stroke(0);
         line(0, 0, this.charW, 0);
@@ -90,6 +105,9 @@ class LineChart {
         pop();
     }
 
+    /**
+        * Creates the vertical axis' line, ticks and values
+    */
     drawVAxis(){
         line(0, 0, 0, -this.charH);
         
@@ -110,7 +128,13 @@ class LineChart {
         }
     }
 
+    /**
+        * Calculates the maximum number and rounder the vertical axis numbers
+        *
+        * @returns {number}
+    */
     calculateMax() {
+        // Calculates the maximum value in any data row
         let max = 0;
         for (let x = 0; x < this.data.getRowCount(); x++) {
             if (int(this.data.rows[x].obj[this.yAxis]) > max) {
@@ -118,6 +142,7 @@ class LineChart {
             }
         }
 
+        // Increase max by one at a time until it's divisible by the number of ticks and also divisible by the rounding number
         for (let x = max; x < 1000000; x++) {
             if (x % this.numTicks == 0 && x % this.rounding == 0) {
                 max = x;
@@ -127,9 +152,17 @@ class LineChart {
 
         return max;
     }
-
+    
+    /**
+        * Scales the data values to fit within the chart height
+        *
+        * @param {*} _num
+        * @returns {number}
+     */
     scaler(_num) {
+        // Calculate the amount to scale each value by
         let scaleValue = this.maxNum / this.charH;
+        // Apply the scaling factor to the value for the current bar
         return _num / scaleValue;
     }
 }

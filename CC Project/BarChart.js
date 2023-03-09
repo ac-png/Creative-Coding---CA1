@@ -56,7 +56,6 @@ class BarChart {
     drawBars() {
         push();
             translate(this.margin, 0);
-            // * Draws the bars.
             for (let x = 0; x < this.numBars; x++) {
                 let colorNum = x % this.colors.length;
                 let value = int(-this.data.rows[x].obj[this.yAxis]);

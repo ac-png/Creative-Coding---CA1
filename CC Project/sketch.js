@@ -55,9 +55,9 @@ function setup() {
 }
 
 function draw() {
-    barChart.render();
-    stackChart.render();
-    hBarChart.render();
-    hStackChart.render();
-    lineChart.render();
+    barChart.drawChart();
+    stackChart.drawChart();
+    hBarChart.drawChart();
+    hStackChart.drawChart();
+    lineChart.drawChart();
 }

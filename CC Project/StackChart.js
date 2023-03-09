@@ -42,8 +42,7 @@ class StackChart {
         this.barUnit = (this.barWidth + this.spacing);
     }
 
-    render() {
-        noFill();
+    drawChart() {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
@@ -54,7 +53,6 @@ class StackChart {
             this.drawHAxis();
             this.drawVAxis();
             this.drawBars();
-            this.legend();
         pop();
     }
 

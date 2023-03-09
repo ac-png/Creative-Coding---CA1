@@ -24,5 +24,5 @@ function setup(){
 }
 
 function draw() {
-    charts[0].render();
+    charts[0].drawChart();
 }

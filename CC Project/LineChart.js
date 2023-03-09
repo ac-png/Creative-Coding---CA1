@@ -40,20 +40,19 @@ class LineChart {
         this.barUnit = (this.barWidth + this.spacing); 
     }
 
-    render() {
-        noFill();
+    drawChart() {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
             textFont(this.font);
-            fill(0);
-            textSize(18);
+            textSize(20);
             text(this.title, 0, -this.charH - 20);
             this.drawHAxis();
             this.drawVAxis();
             this.drawCircles();
         pop();
     }
+
 
     drawCircles() {
         push();

@@ -40,13 +40,11 @@ class BarChart {
         this.barUnit = (this.barWidth + this.spacing); 
     }
 
-    render() {
-        noFill();
+    drawChart() {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
             textFont(this.font);
-            fill(0);
             textSize(20);
             text(this.title, 0, -this.charH - 20);
             this.drawHAxis();
@@ -58,6 +56,7 @@ class BarChart {
     drawBars() {
         push();
             translate(this.margin, 0);
+            // * Draws the bars.
             for (let x = 0; x < this.numBars; x++) {
                 let colorNum = x % this.colors.length;
                 let value = int(-this.data.rows[x].obj[this.yAxis]);
@@ -95,15 +94,15 @@ class BarChart {
 
     drawVAxis(){
         line(0, 0, 0, -this.charH);
-
+        
         for (let y = 0; y < this.numTicks + 1; y++) {
             let ySpace = this.charH / this.numTicks;
             stroke(0);
             line(0, -ySpace * y, -10, -ySpace * y);
             stroke(200);
             line(this.charW, -ySpace * y, 0, -ySpace * y);
+
             let unitSpace = (this.maxNum / this.numTicks).toFixed();
-            
             noStroke();
             fill(50);
             noStroke();

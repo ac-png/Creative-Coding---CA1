@@ -42,7 +42,7 @@ class HStackChart {
         this.barUnit = this.barWidth + this.spacing;
     }
 
-    render() {
+    drawChart() {
         noFill();
         stroke(50);
         push();           

@@ -40,7 +40,7 @@ class HBarChart {
         this.barUnit = this.barWidth + this.spacing;
     }
 
-    render() {
+    drawChart() {
         push();           
             translate(this.xPos, this.yPos);
 

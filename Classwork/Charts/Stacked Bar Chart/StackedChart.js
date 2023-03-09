@@ -18,7 +18,7 @@ class StackedChart {
         this.numGap = this.maxValue / (this.numTicks - 1);
     }
 
-    render() {
+    drawChart() {
         push();
             translate(this.posX, this.posY);
             this.drawHLine();

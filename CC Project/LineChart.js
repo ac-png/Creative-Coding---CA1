@@ -68,11 +68,13 @@ class LineChart {
     drawCircles() {
         push();
             translate(this.margin, 0);
+            stroke(0);
             for (let x = 0; x < this.numBars; x++) {
                 let colorNum = x % this.colors.length;
                 let value = int(-this.data.rows[x].obj[this.yAxis]);
                 fill(this.colors[colorNum]);
                 ellipse(this.margin, this.scaler(value), this.barWidth, this.barWidth);
+                line(this.margin, this.scaler(value) + (this.barWidth/2), this.margin, 0);
                 // Moves the x co-ordinate for the next circle
                 translate(this.barUnit, 0);
             }

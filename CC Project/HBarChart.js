@@ -51,10 +51,6 @@ class HBarChart {
     drawChart() {
         push();           
             translate(this.xPos, this.yPos);
-            textFont(this.font);
-            fill(0);
-            textSize(20);
-            text(this.title, 0, -20)
             this.drawVAxis();
             this.drawHAxis();
             this.drawBars();

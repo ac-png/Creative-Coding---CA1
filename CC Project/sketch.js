@@ -15,6 +15,7 @@ function preload() {
 function setup() {
     createCanvas(1750, 1500);
     background(255);
+    pixelDensity(2);
     barChart = new BarChart({
         _title: "Infant Mortality Deaths Under 1 Year in 2020",
         _data: data,
@@ -49,12 +50,13 @@ function setup() {
         _title: "Average Infant Mortality Deaths Under 1 Year in 2020",
         _data: data,
         _xAxis: "Age Group",
-        _yAxis: "Avg",
+        _yAxis: "Average",
         _font: font,
         _colors: colors});
 }
 
 function draw() {
+    background(255);
     barChart.drawChart();
     stackChart.drawChart();
     hBarChart.drawChart();

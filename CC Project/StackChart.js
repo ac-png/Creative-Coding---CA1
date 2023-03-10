@@ -54,10 +54,6 @@ class StackChart {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
-            textFont(this.font);
-            fill(0);
-            textSize(20);
-            text(this.title, 0, -this.charH - 20);
             this.drawHAxis();
             this.drawVAxis();
             this.drawBars();

@@ -55,10 +55,6 @@ class HStackChart {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
-            textFont(this.font);
-            fill(0);
-            textSize(20);
-            text(this.title, 0, -20)
             this.drawVAxis();
             this.drawHAxis();
             this.drawBars();
@@ -96,8 +92,8 @@ class HStackChart {
             for (let x = 0; x < this.stackOptions.length; x++) {
                 fill(colors[x]);
                 textSize(20);
-                text(this.stackOptions[x], this.charW, this.charH - 50);
-                translate(0, 20);
+                text(this.stackOptions[x], this.charW, this.charH + 50);
+                translate(-70, 0);
             }
         pop();
     }

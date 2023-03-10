@@ -52,9 +52,11 @@ class LineChart {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
+            textFont(this.font);
             this.drawHAxis();
             this.drawVAxis();
             this.drawCircles();
+            this.topTitle();
         pop();
     }
 
@@ -75,6 +77,13 @@ class LineChart {
                 translate(this.barUnit, 0);
             }
         pop();
+    }
+
+    topTitle() {
+        fill(0);
+        textSize(20);
+        textAlign(LEFT);
+        text(this.title, 0, -this.charH - 20);
     }
 
     /**

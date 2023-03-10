@@ -52,9 +52,11 @@ class BarChart {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
+            textFont(this.font);
             this.drawHAxis();
             this.drawVAxis();
             this.drawBars();
+            this.topTitle();
         pop();
     }
 
@@ -68,7 +70,7 @@ class BarChart {
                 let colorNum = x % this.colors.length;
                 let value = int(-this.data.rows[x].obj[this.yAxis]);
                 fill(this.colors[colorNum]);
-                rect(0, 0, this.barWidth, this.scaler(value));
+                rect(0, 0, this.barWidth, this.scaler(value), 0, 0, 5, 5);
                 // ! strokeWeight(this.barWidth);
                 // ! stroke(this.colors[colorNum]);
                 // ! strokeCap(ROUND);
@@ -79,6 +81,13 @@ class BarChart {
         pop();
     }
 
+    topTitle() {
+        fill(0);
+        textSize(20);
+        textAlign(LEFT);
+        text(this.title, 0, -this.charH - 20);
+    }
+    
     /**
         * Creates the horizontal axis' line and values
     */

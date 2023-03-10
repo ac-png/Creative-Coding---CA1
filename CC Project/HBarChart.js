@@ -51,9 +51,11 @@ class HBarChart {
     drawChart() {
         push();           
             translate(this.xPos, this.yPos);
+            textFont(this.font);
             this.drawVAxis();
             this.drawHAxis();
             this.drawBars();
+            this.topTitle();
         pop();
     }
 
@@ -73,6 +75,13 @@ class HBarChart {
                 text(this.data.rows[x].obj[this.yAxis], (this.scaler(value)) + 25, (x * this.barUnit) + 40);
             }
         pop();
+    }
+
+    topTitle() {
+        fill(0);
+        textSize(20);
+        textAlign(LEFT);
+        text(this.title, 0, -30);
     }
 
     /**

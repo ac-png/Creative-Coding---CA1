@@ -54,10 +54,12 @@ class StackChart {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
+            textFont(this.font);
             this.drawHAxis();
             this.drawVAxis();
             this.drawBars();
             this.legend();
+            this.topTitle();
         pop();
     }
 
@@ -81,6 +83,13 @@ class StackChart {
                 text(this.data.rows[x].obj[this.yAxis], (x * this.barUnit) + this.barWidth, (this.scaler(value)) - 10);
             pop();
         }
+    }
+
+    topTitle() {
+        fill(0);
+        textSize(20);
+        textAlign(LEFT);
+        text(this.title, 0, -this.charH - 20);
     }
 
     /**

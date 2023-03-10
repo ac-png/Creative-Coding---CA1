@@ -47,7 +47,7 @@ function setup() {
         _colors: colors,
         _stackOptions: stackOptions});
     lineChart = new LineChart({
-        _title: "Average Infant Mortality Deaths Under 1 Year in 2020",
+        _title: "Infant Mortality Deaths Under 1 Year in 2020",
         _data: data,
         _xAxis: "Age Group",
         _yAxis: "Average",

@@ -70,11 +70,12 @@ class BarChart {
             for (let x = 0; x < this.numBars; x++) {
                 let colorNum = x % this.colors.length;
                 let value = int(-this.data.rows[x].obj[this.yAxis]);
-                strokeWeight(this.barWidth);
-                stroke(this.colors[colorNum]);
-                strokeCap(SQUARE);
+                fill(this.colors[colorNum]);
+                rect(0, 0, this.barWidth, this.scaler(value));
+                // ! strokeWeight(this.barWidth);
+                // ! stroke(this.colors[colorNum]);
                 // ! strokeCap(ROUND);
-                line(this.margin, 0, this.margin, this.scaler(value));
+                // ! line(this.margin, 0, this.margin, this.scaler(value));
                 // Moves the starting point for the next bar
                 translate(this.barUnit, 0);
             }

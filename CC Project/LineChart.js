@@ -3,7 +3,7 @@ class LineChart {
         _charW = 400,
         _charH = 200,
         _xPos = 75,
-        _yPos = 1300,
+        _yPos = 1350,
         _numTicks = 7,
         _rounding = 5,
         _margin = 15,
@@ -52,6 +52,7 @@ class LineChart {
         stroke(50);
         push();           
             translate(this.xPos, this.yPos);
+            fill(0);
             textFont(this.font);
             textSize(20);
             text(this.title, 0, -this.charH - 20);

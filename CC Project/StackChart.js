@@ -61,6 +61,7 @@ class StackChart {
             this.drawHAxis();
             this.drawVAxis();
             this.drawBars();
+            this.legend();
         pop();
     }
 
